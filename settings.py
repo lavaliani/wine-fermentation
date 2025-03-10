@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-mw#9l(-2v+fz(k8amzjl0qm#ukc60ajm(=#zk#827d97a)p=m9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['wine-fermentation.onrender.com', 'localhost', '127.0.0.1']
+
 
 
 # Application definition
