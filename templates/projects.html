@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}პროექტების სია{% endblock %}
+
+{% block content %}
+    <h1>პროექტების სია</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>პროექტის სახელი</th>
+                <th>დაწყების თარიღი</th>
+                <th>მოქმედებები</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.id }}</td>
+                <td>{{ project.name }}</td>
+                <td>{{ project.start_date }}</td>
+                <td>
+                    <a href="{{ url_for('edit_project', project_id=project.id) }}">✏️ რედაქტირება</a> |
+                    <a href="{{ url_for('delete_project', project_id=project.id) }}" onclick="return confirm('ნამდვილად გსურთ წაშლა?');">🗑️ წაშლა</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="buttons">
+        <a href="{{ url_for('new_project') }}">
+            <button>➕ ახალი პროექტის დამატება</button>
+        </a>
+    </div>
+{% endblock %}

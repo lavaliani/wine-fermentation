@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ახალი პროექტის დამატება</title>
+</head>
+<body>
+    <h1>ახალი პროექტის დამატება</h1>
+    <form action="/add_project" method="POST">
+        <label for="name">პროექტის სახელი:</label>
+        <input type="text" id="name" name="name" required>
+        <br><br>
+        <label for="start_date">დაწყების თარიღი:</label>
+        <input type="date" id="start_date" name="start_date" required>
+        <br><br>
+        <button type="submit">დამატება</button>
+    </form>
+    <br>
+    <a href="/projects">🔙 უკან დაბრუნება</a>
+</body>
+</html>

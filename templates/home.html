@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>მთავარი გვერდი</title>
+</head>
+<body>
+    <h1>პროექტების სია</h1>
+    <ul>
+        {% for project in projects %}
+            <li>{{ project.Project Name }} ({{ project.Created At }})</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'new_project' %}">+ ახალი პროექტი</a>
+</body>
+</html>

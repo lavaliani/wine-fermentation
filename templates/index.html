@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>მთავარი გვერდი</h1>
+
+    <img src="{{ url_for('static', filename='images/main_image.png') }}" alt="მთავარი სურათი" width="300">
+
+    <nav>
+        <a href="{{ url_for('projects_list') }}">📋 ყველა პროექტი</a> |
+        <a href="{{ url_for('new_project') }}">➕ ახალი პროექტი</a>
+    </nav>
+{% endblock %}
