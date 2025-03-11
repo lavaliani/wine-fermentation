@@ -3,17 +3,17 @@ from django.http import HttpResponse
 from .models import Project
 
 def home(request):
-    return render(request, "wine_app/home.html")  # დარწმუნდი, რომ ეს ფაილი არსებობს
+    return render(request, "home.html")  # ფაილი უნდა იყოს templates/home.html
 
 def register(request):
-    return render(request, "wine_app/register.html")
+    return render(request, "register.html")
 
 def login_view(request):
-    return render(request, "wine_app/login.html")
+    return render(request, "login.html")
 
 def projects(request):
     projects = Project.objects.all()
-    return render(request, "wine_app/projects.html", {"projects": projects})
+    return render(request, "projects.html", {"projects": projects})
 
 def new_project(request):
     if request.method == "POST":
@@ -40,11 +40,11 @@ def new_project(request):
             )
             return redirect("projects")  # აქ `projects` სია გადაგიყვანს
 
-    return render(request, "wine_app/new_project.html")
+    return render(request, "new_project.html")
 
 def project_detail(request, project_id):
     project = get_object_or_404(Project, id=project_id)
-    return render(request, "wine_app/project_detail.html", {"project": project})
+    return render(request, "project_detail.html", {"project": project})
 
 def delete_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
@@ -52,4 +52,4 @@ def delete_project(request, project_id):
         project.delete()
         return redirect("projects")  # დარწმუნდი, რომ "projects" URL რეგისტრირებულია  
 
-    return render(request, "wine_app/confirm_delete.html", {"project": project})
+    return render(request, "confirm_delete.html", {"project": project})
