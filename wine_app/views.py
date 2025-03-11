@@ -26,19 +26,19 @@ def new_project(request):
         harvest_date = request.POST.get("harvest_date", "").strip()
         wine_style = request.POST.get("wine_style", "").strip()
 
-        # ცარიელი მონაცემების თავიდან აცილება
+        # ცარიელი ველების თავიდან აცილება
         if project_name and grape_type and sugar:
             Project.objects.create(
                 project_name=project_name,
                 grape_type=grape_type,
                 sugar=sugar,
-                brix=brix,
-                ph=ph,
-                acidity=acidity,
-                harvest_date=harvest_date,
-                wine_style=wine_style,
+                brix=brix if brix else None,
+                ph=ph if ph else None,
+                acidity=acidity if acidity else None,
+                harvest_date=harvest_date if harvest_date else None,
+                wine_style=wine_style if wine_style else None,
             )
-            return redirect("home")  # დარწმუნდი, რომ "home" URL რეგისტრირებულია
+            return redirect("projects")  # აქ `projects` სია გადაგიყვანს
 
     return render(request, "wine_app/new_project.html")
 
@@ -48,6 +48,8 @@ def project_detail(request, project_id):
 
 def delete_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
-    project.delete()
-    
-    return redirect("projects")  # დარწმუნდი, რომ "projects" URL რეგისტრირებულია
+    if request.method == "POST":  # უსაფრთხოების გამო, წაშლა მხოლოდ POST-ით
+        project.delete()
+        return redirect("projects")  # დარწმუნდი, რომ "projects" URL რეგისტრირებულია  
+
+    return render(request, "wine_app/confirm_delete.html", {"project": project})
