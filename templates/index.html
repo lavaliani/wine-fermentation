@@ -1,12 +1,34 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-    <h1>მთავარი გვერდი</h1>
+    <div style="text-align: center; max-width: 600px; margin: auto; padding: 20px; border: 1px solid black;">
+        <h2>საიტის დანიშნულება</h2>
+    </div>
 
-    <img src="{{ url_for('static', filename='images/main_image.png') }}" alt="მთავარი სურათი" width="300">
+    <div style="text-align: center; max-width: 600px; margin: 20px auto; padding: 20px;">
+        <a href="{% url 'login' %}">
+            <button style="padding: 10px 20px; font-size: 16px;">Log In</button>
+        </a>
+        <a href="{% url 'signup' %}">
+            <button style="padding: 10px 20px; font-size: 16px;">Registration</button>
+        </a>
+    </div>
 
-    <nav>
-        <a href="{{ url_for('projects_list') }}">📋 ყველა პროექტი</a> |
-        <a href="{{ url_for('new_project') }}">➕ ახალი პროექტი</a>
-    </nav>
+    <div style="max-width: 600px; height: 200px; margin: auto; padding: 20px; border: 1px solid black;">
+        <h3 style="text-align: center;">საიტის დანიშნულება</h3>
+        <p>აქ შეგიძლიათ დაწეროთ საიტის დანიშნულება.</p>
+    </div>
+
+    <div style="max-width: 600px; height: 150px; margin: 20px auto; padding: 20px; border: 1px solid black;">
+        <h3>ლინკები:</h3>
+        <ul>
+            <li><a href="https://example.com" target="_blank">Example Link 1</a></li>
+            <li><a href="https://example2.com" target="_blank">Example Link 2</a></li>
+        </ul>
+    </div>
+
+    <div style="text-align: center; max-width: 600px; margin: auto; padding: 20px; border: 1px solid black;">
+        <p>კონტაქტი: <strong>მეილი.</strong></p>
+    </div>
 {% endblock %}
