@@ -31,6 +31,11 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='wine-fermentation.onrender.com,
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',  # Add this if it's missing
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     # Add other apps here
 ]
 
