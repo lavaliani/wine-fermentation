@@ -1,3 +1,4 @@
+import os  # დამატებულია os მოდულის იმპორტი
 from pathlib import Path
 from decouple import config
 
@@ -5,7 +6,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='wine-fermentation.onrender.com,localhost,127.0.0.1', cast=lambda v: v.split(','))
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    default='wine-fermentation.onrender.com,localhost,127.0.0.1',
+    cast=lambda v: v.split(',')
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -32,7 +37,7 @@ ROOT_URLCONF = 'wine_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], 
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # ამ ხაზისთვის საჭიროა os
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -61,11 +66,11 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-LANGUAGE_CODE = 'ka'            
+LANGUAGE_CODE = 'ka'
 TIME_ZONE = 'Asia/Tbilisi'
 USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]  # ესეც გამოიყენებს os-ს
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
