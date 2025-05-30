@@ -3,17 +3,17 @@ from django.http import HttpResponse
 from .models import Project
 
 def home(request):
-    return render(request, "home.html")  # ფაილი უნდა იყოს templates/home.html
+    return render(request, "wine_app/home.html")
 
 def register(request):
-    return render(request, "register.html")
+    return render(request, "wine_app/register.html")
 
 def login_view(request):
-    return render(request, "login.html")
+    return render(request, "wine_app/login.html")
 
 def projects(request):
     projects = Project.objects.all()
-    return render(request, "projects.html", {"projects": projects})
+    return render(request, "wine_app/projects.html", {"projects": projects})
 
 def new_project(request):
     if request.method == "POST":
@@ -26,7 +26,6 @@ def new_project(request):
         harvest_date = request.POST.get("harvest_date", "").strip()
         wine_style = request.POST.get("wine_style", "").strip()
 
-        # ცარიელი ველების თავიდან აცილება
         if project_name and grape_type and sugar:
             Project.objects.create(
                 project_name=project_name,
@@ -38,18 +37,18 @@ def new_project(request):
                 harvest_date=harvest_date if harvest_date else None,
                 wine_style=wine_style if wine_style else None,
             )
-            return redirect("projects")  # აქ `projects` სია გადაგიყვანს
+            return redirect("projects")
 
-    return render(request, "new_project.html")
+    return render(request, "wine_app/new_project.html")
 
 def project_detail(request, project_id):
     project = get_object_or_404(Project, id=project_id)
-    return render(request, "project_detail.html", {"project": project})
+    return render(request, "wine_app/project_detail.html", {"project": project})
 
 def delete_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
-    if request.method == "POST":  # უსაფრთხოების გამო, წაშლა მხოლოდ POST-ით
+    if request.method == "POST":
         project.delete()
-        return redirect("projects")  # დარწმუნდი, რომ "projects" URL რეგისტრირებულია  
+        return redirect("projects")
 
-    return render(request, "confirm_delete.html", {"project": project})
+    return render(request, "wine_app/confirm_delete.html", {"project": project})
