@@ -29,14 +29,13 @@
 </head>
 <body>
 <nav>
-    <a href="{{ url_for('home') }}">🏠 მთავარი</a>
-    <a href="{{ url_for('projects_list') }}">📋 პროექტები</a>
-    <a href="{{ url_for('new_project') }}">➕ ახალი პროექტი</a>
+    <a href="{% url 'home' %}">🏠 მთავარი</a>
+    <a href="{% url 'projects' %}">📋 პროექტები</a>
+    <a href="{% url 'new_project' %}">➕ ახალი პროექტი</a>
 </nav>
 
-
-    <div class="container">
-        {% block content %}{% endblock %}
-    </div>
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
 </body>
 </html>
