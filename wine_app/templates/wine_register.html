@@ -1,15 +1,1 @@
-{% extends "wine_app/base.html" %}
 
-{% block content %}
-<h1>რეგისტრაციის გვერდი</h1>
-<form method="post">
-    {% csrf_token %}
-    <label for="username">მომხმარებლის სახელი:</label>
-    <input type="text" id="username" name="username"><br><br>
-
-    <label for="password">პაროლი:</label>
-    <input type="password" id="password" name="password"><br><br>
-
-    <button type="submit">რეგისტრაცია</button>
-</form>
-{% endblock %}
