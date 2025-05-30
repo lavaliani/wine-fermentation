@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 from .models import Project
+from datetime import datetime
 
 def home(request):
     return render(request, "wine_app/home.html")
@@ -26,18 +27,42 @@ def new_project(request):
         harvest_date = request.POST.get("harvest_date", "").strip()
         wine_style = request.POST.get("wine_style", "").strip()
 
-        if project_name and grape_type and sugar:
-            Project.objects.create(
-                project_name=project_name,
-                grape_type=grape_type,
-                sugar=sugar,
-                brix=brix if brix else None,
-                ph=ph if ph else None,
-                acidity=acidity if acidity else None,
-                harvest_date=harvest_date if harvest_date else None,
-                wine_style=wine_style if wine_style else None,
-            )
-            return redirect("projects")
+        # სავალდებულო ველები
+        if not (project_name and grape_type and sugar):
+            error = "გთხოვთ შეავსოთ აუცილებელი ველები: პროექტის სახელი, ყურძნის ტიპი და შაქარი."
+            return render(request, "wine_app/new_project.html", {"error": error})
+
+        # თუ არის harvest_date, დავამოწმოთ ფორმატი (მაგ: YYYY-MM-DD)
+        parsed_harvest_date = None
+        if harvest_date:
+            try:
+                parsed_harvest_date = datetime.strptime(harvest_date, "%Y-%m-%d").date()
+            except ValueError:
+                error = "არასწორი თარიღის ფორმატი. გამოიყენეთ: YYYY-MM-DD"
+                return render(request, "wine_app/new_project.html", {"error": error})
+
+        # ციფრული ველების გადაკეთება თუ საჭიროა (brix, ph, acidity)
+        def to_float(value):
+            try:
+                return float(value)
+            except (ValueError, TypeError):
+                return None
+
+        brix_val = to_float(brix)
+        ph_val = to_float(ph)
+        acidity_val = to_float(acidity)
+
+        Project.objects.create(
+            project_name=project_name,
+            grape_type=grape_type,
+            sugar=sugar,
+            brix=brix_val,
+            ph=ph_val,
+            acidity=acidity_val,
+            harvest_date=parsed_harvest_date,
+            wine_style=wine_style if wine_style else None,
+        )
+        return redirect("projects")
 
     return render(request, "wine_app/new_project.html")
 
@@ -50,5 +75,4 @@ def delete_project(request, project_id):
     if request.method == "POST":
         project.delete()
         return redirect("projects")
-
     return render(request, "wine_app/confirm_delete.html", {"project": project})
