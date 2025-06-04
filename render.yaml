@@ -3,10 +3,9 @@ services:
     name: wine-fermentation
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn --chdir . settings:application"
+    startCommand: "gunicorn wine_backend.wsgi:application"
     envVars:
       - key: DJANGO_SETTINGS_MODULE
-        value: settings
+        value: wine_backend.settings
       - key: PYTHON_VERSION
         value: 3.11
-    autoDeploy: true
