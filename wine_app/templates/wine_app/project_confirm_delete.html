@@ -1,0 +1,5 @@
+{% extends "wine_app/base.html" %}
+{% block title %}პროექტის წაშლა{% endblock %}
+{% block content %}
+<section class="form-shell narrow"><div class="section-heading"><h1>პროექტის წაშლა</h1></div><form method="post" class="form-card">{% csrf_token %}<p>ნამდვილად გსურს "{{ project.name }}" პროექტის წაშლა?</p><div class="form-actions"><button class="button danger" type="submit">წაშლა</button><a class="button secondary" href="{{ project.get_absolute_url }}">გაუქმება</a></div></form></section>
+{% endblock %}
