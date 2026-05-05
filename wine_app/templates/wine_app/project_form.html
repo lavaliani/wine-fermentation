@@ -1,0 +1,5 @@
+{% extends "wine_app/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<section class="form-shell"><div class="section-heading"><div><p class="eyebrow">პარტიის აღწერა</p><h1>{{ title }}</h1></div></div><form method="post" class="form-grid">{% csrf_token %}{% for field in form %}<div class="field {% if field.name == 'notes' %}wide{% endif %}"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.errors %}<small class="error">{{ field.errors|striptags }}</small>{% endif %}</div>{% endfor %}<div class="form-actions"><button class="button" type="submit">შენახვა</button><a class="button secondary" href="{% if project %}{{ project.get_absolute_url }}{% else %}{% url 'project_list' %}{% endif %}">გაუქმება</a></div></form></section>
+{% endblock %}

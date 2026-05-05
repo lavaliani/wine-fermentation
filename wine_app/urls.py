@@ -1,12 +1,19 @@
 from django.urls import path
-from .views import home, register, login_view, projects, new_project, project_detail, delete_project
+
+from . import views
+
 
 urlpatterns = [
-    path("", home, name="home"),
-    path("register/", register, name="register"),
-    path("login/", login_view, name="login"),
-    path("projects/", projects, name="projects"),
-    path("projects/new/", new_project, name="new_project"),
-    path("projects/<int:project_id>/", project_detail, name="project_detail"),
-    path("projects/<int:project_id>/delete/", delete_project, name="delete_project"),
+    path("", views.home, name="home"),
+    path("dashboard/", views.dashboard, name="dashboard"),
+    path("register/", views.register, name="register"),
+    path("login/", views.WineLoginView.as_view(), name="login"),
+    path("logout/", views.WineLogoutView.as_view(), name="logout"),
+    path("projects/", views.project_list, name="project_list"),
+    path("projects/new/", views.project_create, name="project_create"),
+    path("projects/<int:pk>/", views.project_detail, name="project_detail"),
+    path("projects/<int:pk>/edit/", views.project_update, name="project_update"),
+    path("projects/<int:pk>/delete/", views.project_delete, name="project_delete"),
+    path("projects/<int:pk>/entries/new/", views.entry_create, name="entry_create"),
+    path("projects/<int:pk>/entries/<int:entry_pk>/delete/", views.entry_delete, name="entry_delete"),
 ]

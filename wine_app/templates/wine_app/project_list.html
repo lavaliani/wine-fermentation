@@ -1,0 +1,6 @@
+{% extends "wine_app/base.html" %}
+{% block title %}პროექტები{% endblock %}
+{% block content %}
+<section class="section-heading"><div><p class="eyebrow">ფერმენტაციის პარტიები</p><h1>პროექტები</h1></div><a class="button" href="{% url 'project_create' %}">ახალი პროექტი</a></section>
+<div class="table-wrap"><table><thead><tr><th>სახელი</th><th>ჯიში</th><th>მოსავალი</th><th>სტილი</th><th>სტატუსი</th><th></th></tr></thead><tbody>{% for project in projects %}<tr><td><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></td><td>{{ project.grape_type|default:"-" }}</td><td>{{ project.harvest_date|date:"d.m.Y"|default:"-" }}</td><td>{{ project.wine_style }}</td><td>{% if project.is_active %}აქტიური{% else %}დასრულებული{% endif %}</td><td><a href="{% url 'project_update' project.pk %}">რედაქტირება</a></td></tr>{% empty %}<tr><td colspan="6">პროექტები ჯერ არ არის.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}
